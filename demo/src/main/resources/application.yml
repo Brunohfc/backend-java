@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: demo-rest_api-2025
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/person_api?useTimezone=true&serverTimezone=UTC
+    username: root
+    password: root_password
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+      # so vou mudar para true quando quiser debugar o sql gerao
+      show-sql: false

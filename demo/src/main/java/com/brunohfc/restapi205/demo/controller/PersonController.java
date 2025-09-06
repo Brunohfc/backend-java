@@ -3,6 +3,7 @@ package com.brunohfc.restapi205.demo.controller;
 import com.brunohfc.restapi205.demo.model.Person;
 import com.brunohfc.restapi205.demo.services.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -43,7 +44,9 @@ public class PersonController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable Long id){
+    public ResponseEntity<?> deleteById(@PathVariable Long id){
         personService.delete(id);
+
+        return ResponseEntity.noContent().build();
     }
 }

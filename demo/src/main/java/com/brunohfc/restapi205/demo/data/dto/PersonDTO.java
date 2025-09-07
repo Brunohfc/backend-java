@@ -1,35 +1,26 @@
-package com.brunohfc.restapi205.demo.model;
+package com.brunohfc.restapi205.demo.data.dto;
 
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
-@Entity
-@Table(name="person")
-public class Person implements Serializable {
 
-    @Serial
+public class PersonDTO implements Serializable {
+
     private static final long serialVersionUID= 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 50)
     private String nome;
 
-    @Column(nullable = false, length = 50)
     private String sobrenome;
 
-    @Column(nullable = false, length = 50)
     private String endereco;
 
-    @Column(nullable = false, length = 50)
     private String genero;
 
-    public Person() {
+    public PersonDTO() {
     }
 
     public Long getId() {
@@ -75,7 +66,7 @@ public class Person implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        Person person = (Person) o;
+        com.brunohfc.restapi205.demo.data.dto.PersonDTO person = (com.brunohfc.restapi205.demo.data.dto.PersonDTO) o;
         return Objects.equals(id, person.id);
     }
 

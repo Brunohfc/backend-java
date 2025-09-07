@@ -1,6 +1,6 @@
 package com.brunohfc.restapi205.demo.controller;
 
-import com.brunohfc.restapi205.demo.model.Person;
+import com.brunohfc.restapi205.demo.data.dto.PersonDTO;
 import com.brunohfc.restapi205.demo.services.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,24 +22,24 @@ public class PersonController {
     }
 
     @GetMapping
-    public List<Person> listPerson(){
+    public List<PersonDTO> listPerson(){
         return personService.findAll();
     }
 
     @PostMapping("/create")
-    public Person create(@RequestBody Person person){
+    public PersonDTO create(@RequestBody PersonDTO person){
         personService.create(person);
         return person;
     }
 
     @GetMapping("/{id}")
-    public Person getPerson(@PathVariable Long id){
+    public PersonDTO getPerson(@PathVariable Long id){
         return personService.getById(id);
     }
 
 
     @PutMapping("/{id}")
-    public Person update(@RequestBody Person person){
+    public PersonDTO update(@RequestBody PersonDTO person){
         return personService.update(person);
     }
 

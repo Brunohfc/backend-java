@@ -2,7 +2,6 @@ package com.brunohfc.restapi205.demo.data.dto;
 
 import jakarta.persistence.*;
 
-import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -13,7 +12,6 @@ public class PersonDTO implements Serializable {
     private Long id;
 
     private String nome;
-
     private String sobrenome;
 
     private String endereco;

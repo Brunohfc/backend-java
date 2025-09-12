@@ -3,6 +3,7 @@ package com.brunohfc.restapi205.demo.services;
 import com.brunohfc.restapi205.demo.data.dto.v1.PersonDTO;
 import com.brunohfc.restapi205.demo.data.dto.v2.PersonDTOV2;
 import com.brunohfc.restapi205.demo.mapper.ObjectMapper;
+import com.brunohfc.restapi205.demo.mapper.PersonMapper;
 import com.brunohfc.restapi205.demo.model.Person;
 import com.brunohfc.restapi205.demo.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,9 @@ public class PersonService {
 
     @Autowired
     PersonRepository repository;
+
+    @Autowired
+    PersonMapper personMapper;
 
     public List<PersonDTO> findAll(){
         return ObjectMapper.parseListObjects(repository.findAll(), PersonDTO.class);
@@ -33,10 +37,12 @@ public class PersonService {
 
         return  ObjectMapper.parseObject(repository.save(entity), PersonDTO.class);
     }
-    public PersonDTOV2 createv2(PersonDTOV2 person){
-        var entity = ObjectMapper.parseObject(person, Person.class);
 
-        return  ObjectMapper.parseObject(repository.save(entity), PersonDTO.class);
+    public PersonDTOV2 createv2(PersonDTOV2 person){
+
+        var entity = personMapper.convertDTOtoEntity(person);
+
+        return  personMapper.convertEntityToDTO(repository.save(entity));
     }
 
     public PersonDTO update(PersonDTO person){

@@ -11,6 +11,7 @@ public class PersonMapper {
 
     public PersonDTOV2 convertEntityToDTO(Person person){
         PersonDTOV2 p2 = new PersonDTOV2();
+        p2.setId(person.getId());
         p2.setEndereco(person.getEndereco());
         p2.setGenero(person.getGenero());
         p2.setNome(person.getNome());
@@ -22,9 +23,9 @@ public class PersonMapper {
 
     }
 
-
     public Person convertDTOtoEntity(PersonDTOV2 person){
         Person entity = new Person();
+        entity.setId(person.getId());
         entity.setEndereco(person.getEndereco());
         entity.setGenero(person.getGenero());
         entity.setNome(person.getNome());

@@ -29,13 +29,15 @@ public class PersonController {
 
     @PostMapping("/create")
     public PersonDTO create(@RequestBody PersonDTO person){
-        personService.create(person);
-        return person;
+        return personService.create(person);
+
+
     }
+
     @PostMapping(value = "/v2/create")
     public PersonDTOV2 create(@RequestBody PersonDTOV2 person){
-        personService.createv2(person);
-        return person;
+        return personService.createv2(person);
+
     }
 
     @GetMapping("/{id}")

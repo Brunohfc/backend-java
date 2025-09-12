@@ -32,7 +32,7 @@ public class PersonController {
         personService.create(person);
         return person;
     }
-    @PostMapping(name = "/v2/create")
+    @PostMapping(value = "/v2/create")
     public PersonDTOV2 create(@RequestBody PersonDTOV2 person){
         personService.createv2(person);
         return person;

@@ -3,8 +3,7 @@ package com.brunohfc.restapi205.demo.unitests.mapper;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.brunohfc.restapi205.demo.*;
-import com.brunohfc.restapi205.demo.data.dto.PersonDTO;
+import com.brunohfc.restapi205.demo.data.dto.v1.PersonDTO;
 import com.brunohfc.restapi205.demo.model.Person;
 
 

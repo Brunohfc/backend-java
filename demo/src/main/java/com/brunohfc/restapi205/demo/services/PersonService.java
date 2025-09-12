@@ -1,6 +1,7 @@
 package com.brunohfc.restapi205.demo.services;
 
-import com.brunohfc.restapi205.demo.data.dto.PersonDTO;
+import com.brunohfc.restapi205.demo.data.dto.v1.PersonDTO;
+import com.brunohfc.restapi205.demo.data.dto.v2.PersonDTOV2;
 import com.brunohfc.restapi205.demo.mapper.ObjectMapper;
 import com.brunohfc.restapi205.demo.model.Person;
 import com.brunohfc.restapi205.demo.repository.PersonRepository;
@@ -28,6 +29,11 @@ public class PersonService {
     }
 
     public PersonDTO create(PersonDTO person){
+        var entity = ObjectMapper.parseObject(person, Person.class);
+
+        return  ObjectMapper.parseObject(repository.save(entity), PersonDTO.class);
+    }
+    public PersonDTOV2 createv2(PersonDTOV2 person){
         var entity = ObjectMapper.parseObject(person, Person.class);
 
         return  ObjectMapper.parseObject(repository.save(entity), PersonDTO.class);

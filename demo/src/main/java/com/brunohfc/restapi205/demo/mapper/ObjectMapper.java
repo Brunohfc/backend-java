@@ -1,6 +1,5 @@
 package com.brunohfc.restapi205.demo.mapper;
 
-import com.brunohfc.restapi205.demo.data.dto.PersonDTO;
 import com.github.dozermapper.core.DozerBeanMapperBuilder;
 import com.github.dozermapper.core.Mapper;
 

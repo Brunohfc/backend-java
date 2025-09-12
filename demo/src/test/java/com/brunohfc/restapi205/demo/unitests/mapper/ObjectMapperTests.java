@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.List;
 
 
-import com.brunohfc.restapi205.demo.data.dto.PersonDTO;
+import com.brunohfc.restapi205.demo.data.dto.v1.PersonDTO;
 import com.brunohfc.restapi205.demo.model.Person;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

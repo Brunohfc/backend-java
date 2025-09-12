@@ -1,6 +1,7 @@
 package com.brunohfc.restapi205.demo.controller;
 
-import com.brunohfc.restapi205.demo.data.dto.PersonDTO;
+import com.brunohfc.restapi205.demo.data.dto.v1.PersonDTO;
+import com.brunohfc.restapi205.demo.data.dto.v2.PersonDTOV2;
 import com.brunohfc.restapi205.demo.services.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +30,11 @@ public class PersonController {
     @PostMapping("/create")
     public PersonDTO create(@RequestBody PersonDTO person){
         personService.create(person);
+        return person;
+    }
+    @PostMapping(name = "/v2/create")
+    public PersonDTOV2 create(@RequestBody PersonDTOV2 person){
+        personService.createv2(person);
         return person;
     }
 

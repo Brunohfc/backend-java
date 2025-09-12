@@ -1,6 +1,4 @@
-package com.brunohfc.restapi205.demo.data.dto;
-
-import jakarta.persistence.*;
+package com.brunohfc.restapi205.demo.data.dto.v1;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -64,7 +62,7 @@ public class PersonDTO implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        com.brunohfc.restapi205.demo.data.dto.PersonDTO person = (com.brunohfc.restapi205.demo.data.dto.PersonDTO) o;
+        PersonDTO person = (PersonDTO) o;
         return Objects.equals(id, person.id);
     }
 

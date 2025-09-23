@@ -1,5 +1,6 @@
 package com.brunohfc.restapi205.demo.services;
 
+import com.brunohfc.restapi205.demo.controller.PersonController;
 import com.brunohfc.restapi205.demo.data.dto.v1.PersonDTO;
 import com.brunohfc.restapi205.demo.data.dto.v2.PersonDTOV2;
 import com.brunohfc.restapi205.demo.mapper.ObjectMapper;
@@ -12,6 +13,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 @Service
 public class PersonService {
 
@@ -22,20 +26,29 @@ public class PersonService {
     PersonMapper personMapper;
 
     public List<PersonDTO> findAll(){
-        return ObjectMapper.parseListObjects(repository.findAll(), PersonDTO.class);
+        var people = ObjectMapper.parseListObjects(repository.findAll(), PersonDTO.class);
 
+        people.forEach(PersonService::createHateoasLink);
+
+        return people;
     }
 
-    public PersonDTO getById(Long id){
+    public PersonDTO findById(Long id){
         var entity = repository.findById(id).orElseThrow(() -> new NoSuchElementException("Not found"));
-        return  ObjectMapper.parseObject(entity, PersonDTO.class);
+        var dto =   ObjectMapper.parseObject(entity, PersonDTO.class);
+
+        createHateoasLink(dto);
+        return dto;
 
     }
 
     public PersonDTO create(PersonDTO person){
         var entity = ObjectMapper.parseObject(person, Person.class);
 
-        return  ObjectMapper.parseObject(repository.save(entity), PersonDTO.class);
+        var dto = ObjectMapper.parseObject(repository.save(entity), PersonDTO.class);
+
+        createHateoasLink(dto);
+        return dto;
     }
 
     public PersonDTOV2 createv2(PersonDTOV2 person){
@@ -55,17 +68,25 @@ public class PersonService {
         entity.setEndereco(person.getEndereco());
         entity.setGenero(person.getGenero());
 
-        return ObjectMapper.parseObject(repository.save(entity),PersonDTO.class);
+        var dto = ObjectMapper.parseObject(repository.save(entity),PersonDTO.class);
+        createHateoasLink(dto);
+        return dto;
     }
 
     public void delete(Long id){
-        var validatePerson = getById(id);
+        var validatePerson = findById(id);
         if(validatePerson != null){
             repository.deleteById(id);
         }
 
+    }
 
-
+    private static void createHateoasLink(PersonDTO dto) {
+        dto.add(linkTo(methodOn(PersonController.class).create(dto)).withRel("create").withType("POST"));
+        dto.add(linkTo(methodOn(PersonController.class).getPerson(dto.getId())).withSelfRel().withType("GET"));
+        dto.add(linkTo(methodOn(PersonController.class).deleteById(dto.getId())).withRel("delete").withType("DELETE"));
+        dto.add(linkTo(methodOn(PersonController.class).update(dto)).withRel("put").withType("PUT"));
+        dto.add(linkTo(methodOn(PersonController.class).listPerson()).withSelfRel().withType("GET"));
     }
 
 

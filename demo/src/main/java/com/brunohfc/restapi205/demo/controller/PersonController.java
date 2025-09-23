@@ -49,7 +49,7 @@ public class PersonController {
     @GetMapping(value = "/{id}" ,
             produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public PersonDTO getPerson(@PathVariable Long id){
-        return personService.getById(id);
+        return personService.findById(id);
     }
 
 

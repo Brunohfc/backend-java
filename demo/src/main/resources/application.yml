@@ -12,10 +12,8 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
-      # so vou mudar para true quando quiser debugar o sql gerao
       show-sql: false
 
-spring-doc:
-  paths-to-match: /api/**/v1/**
-  swagger-ui:
-    user-root-path: true
+  flyway:
+    baseline-on-migrate: true   # ✅ CORRETO
+    enabled: true               # opcional, mas deixa explícito

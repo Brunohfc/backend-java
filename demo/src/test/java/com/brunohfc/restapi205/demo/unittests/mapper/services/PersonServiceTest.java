@@ -1,4 +1,4 @@
-package com.brunohfc.restapi205.demo.services;
+package com.brunohfc.restapi205.demo.unittests.mapper.services;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -1,20 +1,21 @@
 package com.brunohfc.restapi205.demo.integrationtests.testcontainers.swagger;
 
-
 import com.brunohfc.restapi205.demo.integrationtests.testcontainers.AbstractIntegrationTest;
 import config.TestConfigs;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.test.context.ActiveProfiles;
-
-import java.time.Duration;
 
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
 public class SwaggerIntegrationTests extends AbstractIntegrationTest {
+
+    @LocalServerPort
+    int port;
 
     @Test
     void shouldDisplaySwaggerUiPage(){
@@ -22,7 +23,7 @@ public class SwaggerIntegrationTests extends AbstractIntegrationTest {
 
        var pageContent = given()
                .basePath("/swagger-ui/index.html")
-                .port(TestConfigs.SERVER_PORT)
+                .port(port)
                 .when()
                 .get()
                 .then()
@@ -32,6 +33,5 @@ public class SwaggerIntegrationTests extends AbstractIntegrationTest {
                 .asString();
 
         assertTrue(pageContent.contains("Swagger UI"));
-
     }
 }

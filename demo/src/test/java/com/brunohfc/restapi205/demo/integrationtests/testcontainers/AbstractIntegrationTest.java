@@ -20,7 +20,6 @@ public class AbstractIntegrationTest {
 
         private static void startContainers(){
             Startables.deepStart(Stream.of(mysql)).join();
-
         }
 
         private static Map<String,String> createConnectionConfig(){

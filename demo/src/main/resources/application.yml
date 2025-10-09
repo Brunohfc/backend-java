@@ -1,3 +1,6 @@
+cors:
+  originPatterns: http://localhost:8080,https://google.com
+
 spring:
   application:
     name: demo-rest_api-2025

@@ -7,7 +7,15 @@ import com.brunohfc.restapi205.demo.mapper.ObjectMapper;
 import com.brunohfc.restapi205.demo.mapper.PersonMapper;
 import com.brunohfc.restapi205.demo.model.Person;
 import com.brunohfc.restapi205.demo.repository.PersonRepository;
+import jakarta.transaction.Transactional;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.message.Message;
+import org.apache.logging.log4j.util.MessageSupplier;
+import org.apache.logging.log4j.util.Supplier;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,6 +32,8 @@ public class PersonService {
 
     @Autowired
     PersonMapper personMapper;
+
+
 
     public List<PersonDTO> findAll(){
         var people = ObjectMapper.parseListObjects(repository.findAll(), PersonDTO.class);
@@ -73,6 +83,26 @@ public class PersonService {
         return dto;
     }
 
+    @Transactional
+    public PersonDTO disablePerson(Long id) {
+
+        //validando se o item existe
+        repository.findById(id).orElseThrow(
+                () -> new NoSuchElementException("Não encontrado"));
+
+        //existindo desabilita
+        repository.disabledPerson(id);
+
+        //prossegue com o fluxo
+        var entity = repository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Erro ao atualizar pessoa"));
+
+        var dto = ObjectMapper.parseObject(entity,PersonDTO.class);
+        createHateoasLink(dto);
+        return dto;
+
+    }
+
     public void delete(Long id){
         var validatePerson = findById(id);
         if(validatePerson != null){
@@ -85,6 +115,7 @@ public class PersonService {
         dto.add(linkTo(methodOn(PersonController.class).create(dto)).withRel("create").withType("POST"));
         dto.add(linkTo(methodOn(PersonController.class).getPerson(dto.getId())).withSelfRel().withType("GET"));
         dto.add(linkTo(methodOn(PersonController.class).deleteById(dto.getId())).withRel("delete").withType("DELETE"));
+        dto.add(linkTo(methodOn(PersonController.class).disablePerson(dto.getId())).withRel("disable").withType("PATCH"));
         dto.add(linkTo(methodOn(PersonController.class).update(dto)).withRel("put").withType("PUT"));
         dto.add(linkTo(methodOn(PersonController.class).listPerson()).withSelfRel().withType("GET"));
     }

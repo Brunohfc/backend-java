@@ -4,11 +4,6 @@ import com.brunohfc.restapi205.demo.controller.docs.PersonControllerDocs;
 import com.brunohfc.restapi205.demo.data.dto.v1.PersonDTO;
 import com.brunohfc.restapi205.demo.data.dto.v2.PersonDTOV2;
 import com.brunohfc.restapi205.demo.services.PersonService;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.ArraySchema;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -75,5 +70,14 @@ public class PersonController implements PersonControllerDocs {
         personService.delete(id);
 
         return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping(value = "/{id}",
+            produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
+    )
+    @Override
+    public PersonDTO disablePerson(@PathVariable("id") Long id){
+
+        return  personService.disablePerson(id);
     }
 }

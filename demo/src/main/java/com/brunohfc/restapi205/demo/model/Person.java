@@ -29,6 +29,10 @@ public class Person implements Serializable {
     @Column(nullable = false, length = 50)
     private String genero;
 
+
+    @Column(nullable = false )
+    private Boolean enabled;
+
     public Person() {
     }
 
@@ -72,15 +76,24 @@ public class Person implements Serializable {
         this.genero = genero;
     }
 
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
+
     @Override
     public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        Person person = (Person) o;
-        return Objects.equals(id, person.id);
+        if (this == o) return true;
+        if (!(o instanceof Person person)) return false;
+        return Objects.equals(getId(), person.getId()) && Objects.equals(getNome(), person.getNome()) && Objects.equals(getSobrenome(), person.getSobrenome()) && Objects.equals(getEndereco(), person.getEndereco()) && Objects.equals(getGenero(), person.getGenero()) && Objects.equals(getEnabled(), person.getEnabled());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hash(getId(), getNome(), getSobrenome(), getEndereco(), getGenero(), getEnabled());
     }
 }

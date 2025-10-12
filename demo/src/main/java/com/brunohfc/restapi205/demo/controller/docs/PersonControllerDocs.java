@@ -131,4 +131,27 @@ public interface PersonControllerDocs {
     )
 
     ResponseEntity<?> deleteById(@PathVariable Long id);
+
+    @Operation(
+            summary = "disable a person",
+            description = "disable a person using the id",
+            tags = {"People"},
+            responses = {
+                    @ApiResponse(
+                            description = "Success",
+                            responseCode = "200",
+                            content = {
+                                    @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                            schema = @Schema(implementation = PersonDTO.class)
+                                    )
+                            }
+                    ),
+                    @ApiResponse(description = "No content", responseCode = "204", content = @Content),
+                    @ApiResponse(description = "Bad request", responseCode = "400", content = @Content),
+                    @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
+                    @ApiResponse(description = "Not found", responseCode = "404", content = @Content),
+                    @ApiResponse(description = "Internal server error", responseCode = "500", content = @Content)
+            }
+    )
+    PersonDTO disablePerson(@PathVariable("id") Long id);
 }

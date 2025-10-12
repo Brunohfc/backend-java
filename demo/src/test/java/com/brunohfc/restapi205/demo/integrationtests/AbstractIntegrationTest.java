@@ -1,4 +1,4 @@
-package com.brunohfc.restapi205.demo.integrationtests.testcontainers;
+package com.brunohfc.restapi205.demo.integrationtests;
 
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;

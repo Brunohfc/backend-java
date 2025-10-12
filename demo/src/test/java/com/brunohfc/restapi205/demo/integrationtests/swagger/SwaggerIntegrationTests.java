@@ -1,7 +1,6 @@
-package com.brunohfc.restapi205.demo.integrationtests.testcontainers.swagger;
+package com.brunohfc.restapi205.demo.integrationtests.swagger;
 
-import com.brunohfc.restapi205.demo.integrationtests.testcontainers.AbstractIntegrationTest;
-import config.TestConfigs;
+import com.brunohfc.restapi205.demo.integrationtests.AbstractIntegrationTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;

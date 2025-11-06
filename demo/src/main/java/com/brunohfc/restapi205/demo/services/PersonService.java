@@ -16,6 +16,8 @@ import org.apache.logging.log4j.util.MessageSupplier;
 import org.apache.logging.log4j.util.Supplier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,12 +37,18 @@ public class PersonService {
 
 
 
-    public List<PersonDTO> findAll(){
-        var people = ObjectMapper.parseListObjects(repository.findAll(), PersonDTO.class);
+    public Page<PersonDTO> findAll(Pageable pageable){
 
-        people.forEach(PersonService::createHateoasLink);
+        var peoples =repository.findAll(pageable);
+        var linkPeople = peoples.map(person -> {
+                    var dto = ObjectMapper.parseObject(person, PersonDTO.class);
+                    createHateoasLink(dto);
+                    return dto;
+                }
 
-        return people;
+                );
+
+        return linkPeople;
     }
 
     public PersonDTO findById(Long id){
@@ -117,7 +125,7 @@ public class PersonService {
         dto.add(linkTo(methodOn(PersonController.class).deleteById(dto.getId())).withRel("delete").withType("DELETE"));
         dto.add(linkTo(methodOn(PersonController.class).disablePerson(dto.getId())).withRel("disable").withType("PATCH"));
         dto.add(linkTo(methodOn(PersonController.class).update(dto)).withRel("put").withType("PUT"));
-        dto.add(linkTo(methodOn(PersonController.class).listPerson()).withSelfRel().withType("GET"));
+        dto.add(linkTo(methodOn(PersonController.class).listPerson(0,10)).withSelfRel().withType("GET"));
     }
 
 

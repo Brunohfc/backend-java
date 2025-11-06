@@ -8,19 +8,11 @@ import com.brunohfc.restapi205.demo.mapper.PersonMapper;
 import com.brunohfc.restapi205.demo.model.Person;
 import com.brunohfc.restapi205.demo.repository.PersonRepository;
 import jakarta.transaction.Transactional;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.Marker;
-import org.apache.logging.log4j.message.Message;
-import org.apache.logging.log4j.util.MessageSupplier;
-import org.apache.logging.log4j.util.Supplier;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.NoSuchElementException;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
@@ -125,7 +117,7 @@ public class PersonService {
         dto.add(linkTo(methodOn(PersonController.class).deleteById(dto.getId())).withRel("delete").withType("DELETE"));
         dto.add(linkTo(methodOn(PersonController.class).disablePerson(dto.getId())).withRel("disable").withType("PATCH"));
         dto.add(linkTo(methodOn(PersonController.class).update(dto)).withRel("put").withType("PUT"));
-        dto.add(linkTo(methodOn(PersonController.class).listPerson(0,10)).withSelfRel().withType("GET"));
+        dto.add(linkTo(methodOn(PersonController.class).listPerson(0,10, "asc")).withSelfRel().withType("GET"));
     }
 
 

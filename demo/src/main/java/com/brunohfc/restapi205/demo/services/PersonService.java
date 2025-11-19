@@ -11,6 +11,11 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.PagedModel;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.stereotype.Service;
 
 import java.util.NoSuchElementException;
@@ -26,21 +31,27 @@ public class PersonService {
 
     @Autowired
     PersonMapper personMapper;
+    @Autowired
+    PagedResourcesAssembler<PersonDTO> assembler;
 
 
 
-    public Page<PersonDTO> findAll(Pageable pageable){
+    public PagedModel<EntityModel<PersonDTO>> findAll(Pageable pageable){
 
         var peoples =repository.findAll(pageable);
+
         var linkPeople = peoples.map(person -> {
                     var dto = ObjectMapper.parseObject(person, PersonDTO.class);
+
                     createHateoasLink(dto);
                     return dto;
                 }
-
                 );
+        Link findAllLink = WebMvcLinkBuilder
+                .linkTo(WebMvcLinkBuilder.methodOn(PersonController.class).
+                        listPerson(pageable.getPageNumber(), pageable.getPageSize(), String.valueOf(pageable.getSort()))).withSelfRel();
 
-        return linkPeople;
+        return assembler.toModel(linkPeople, findAllLink);
     }
 
     public PersonDTO findById(Long id){

@@ -4,17 +4,15 @@ import com.brunohfc.restapi205.demo.controller.docs.PersonControllerDocs;
 import com.brunohfc.restapi205.demo.data.dto.v1.PersonDTO;
 import com.brunohfc.restapi205.demo.data.dto.v2.PersonDTOV2;
 import com.brunohfc.restapi205.demo.services.PersonService;
-import org.hibernate.query.SortDirection;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("api/person/v1")
@@ -31,7 +29,7 @@ public class PersonController implements PersonControllerDocs {
 
     @Override
     @GetMapping(produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-    public ResponseEntity<Page<PersonDTO>> listPerson(
+    public ResponseEntity<PagedModel<EntityModel<PersonDTO>>> listPerson(
             @RequestParam(value = "page", defaultValue = "0") Integer page,
             @RequestParam(value = "size", defaultValue = "10") Integer size,
             @RequestParam(value = "direction", defaultValue = "asc") String direction

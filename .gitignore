@@ -1,13 +1,18 @@
 # Compiled class files
 *.class
 
+# Package Files
+*.jar
+*.war
+*.ear
+
 # Log files
 *.log
 logs/
 target/*.log
 
 # Maven
-target/
+demo/target/
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup
@@ -16,41 +21,26 @@ release.properties
 dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/wrapper/maven-wrapper.jar
-mvnw
-mvnw.cmd
-
 
 # Gradle
 .gradle/
 build/
-*.jar
-*.war
-*.ear
-*.zip
-*.tar.gz
-*.rar
-
-# Eclipse
-.classpath
 .project
+.classpath
 .settings/
 
 # IntelliJ IDEA
 .idea/
+*.iws
 *.iml
 *.ipr
-*.iws
+out/
 
-# NetBeans
-nbproject/private/
-build/
-nbbuild/
-dist/
-.nb-gradle/
-.cachedir/
-.idea/
-nbproject/
-nb-configuration.xml
+# Eclipse
+.project
+.classpath
+.settings/
+bin/
 
 # VS Code
 .vscode/
@@ -59,11 +49,19 @@ nb-configuration.xml
 .DS_Store
 Thumbs.db
 
-# Environment variables and sensitive files
-*.env
-*.properties
-application*.properties
-application*.yml
-!src/main/resources/application.properties # If you want to track a specific application.properties
-!src/main/resources/application.yml # If you want to track a specific application.yml
+# Spring Boot specific
+/src/main/resources/static/
+/src/main/resources/templates/
+!/src/main/resources/static/**
+!/src/main/resources/templates/**
+
 .gitattributes
+mvnw.*
+mvnw
+demo/.mvn/wrapper
+# Temporary files
+*~
+*.bak
+*.swp
+*.swo
+*.tmp

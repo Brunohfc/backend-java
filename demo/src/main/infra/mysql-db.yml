@@ -1,0 +1,16 @@
+version: '3.3'
+services:
+  db:
+    image: mysql:9.4
+    container_name: mysql_db
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password # Replace with a strong password
+      MYSQL_DATABASE: person_api    # Optional: Initial database to create
+      MYSQL_USER: user_name            # Optional: Initial user to create
+      MYSQL_PASSWORD: user_password    # Optional: Password for the initial user
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+volumes:
+  db_data:

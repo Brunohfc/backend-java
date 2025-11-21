@@ -27,8 +27,8 @@ spring:
     password: ${EMAIL_USER_PASS}
     properties:
       mail.smtp.auth: true
-      mail.starttls.enable: true
-      mail.starttls.required: true
+      mail.smtp.starttls.enable: true
+      mail.smtp.starttls.required: true
   flyway:
     baseline-on-migrate: true   # ✅ CORRETO
     enabled: true               # opcional, mas deixa explícito

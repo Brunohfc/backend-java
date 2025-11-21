@@ -9,7 +9,7 @@ import java.util.Objects;
 @ConfigurationProperties(prefix = "spring.mail")
 public class EmailConfig {
 
-    private String hots;
+    private String host;
     private int port;
     private  String username;
     private String password;
@@ -18,8 +18,8 @@ public class EmailConfig {
     public EmailConfig() {
     }
 
-    public EmailConfig(String hots, int port, String username, String password, String from, boolean ssl) {
-        this.hots = hots;
+    public EmailConfig(String host, int port, String username, String password, String from, boolean ssl) {
+        this.host = host;
         this.port = port;
         this.username = username;
         this.password = password;
@@ -27,12 +27,12 @@ public class EmailConfig {
         this.ssl = ssl;
     }
 
-    public String getHots() {
-        return hots;
+    public String getHost() {
+        return host;
     }
 
-    public void setHots(String hots) {
-        this.hots = hots;
+    public void setHost(String host) {
+        this.host = host;
     }
 
     public int getPort() {
@@ -79,11 +79,11 @@ public class EmailConfig {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof EmailConfig that)) return false;
-        return getPort() == that.getPort() && isSsl() == that.isSsl() && Objects.equals(getHots(), that.getHots()) && Objects.equals(getUsername(), that.getUsername()) && Objects.equals(getPassword(), that.getPassword()) && Objects.equals(getFrom(), that.getFrom());
+        return getPort() == that.getPort() && isSsl() == that.isSsl() && Objects.equals(getHost(), that.getHost()) && Objects.equals(getUsername(), that.getUsername()) && Objects.equals(getPassword(), that.getPassword()) && Objects.equals(getFrom(), that.getFrom());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getHots(), getPort(), getUsername(), getPassword(), getFrom(), isSsl());
+        return Objects.hash(getHost(), getPort(), getUsername(), getPassword(), getFrom(), isSsl());
     }
 }

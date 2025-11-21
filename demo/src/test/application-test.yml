@@ -1,5 +1,10 @@
 cors:
   originPatterns: http://localhost:8080,https://google.com
+
+email:
+  subject: "Default Subject"
+  message: "Default Message"
+
 server:
   port: 8888
 
@@ -16,7 +21,15 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
-
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${EMAIL_USER_SENDER}
+    password: ${EMAIL_USER_PASS}
+    properties:
+      mail.smtp.auth: true
+      mail.starttls.enable: true
+      mail.starttls.required: true
 logging:
   level:
     root: INFO

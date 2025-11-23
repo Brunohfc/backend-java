@@ -33,6 +33,7 @@
 		<flyway.version>11.13.1</flyway.version>
 		<restassured.version>5.5.6</restassured.version>
 		<mysql.version>9.1.0</mysql.version>
+		<jwt.version>4.4.0</jwt.version>
 	</properties>
 
 
@@ -41,6 +42,16 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.auth0</groupId>
+			<artifactId>java-jwt</artifactId>
+			<version>${jwt.version}</version>
+		</dependency>
+
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
